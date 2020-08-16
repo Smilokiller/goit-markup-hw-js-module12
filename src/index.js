@@ -9,14 +9,15 @@ const country = document.querySelector('.country');
 const body = document.querySelector('body')
 const _ = require('lodash');
 
+
 let countryValue;
-country.addEventListener('input',
-    _.debounce((() => {
-        countryValue = country.value;
-        checkBank(countryValue)
-            .then((list) => list.json())
-            .then((list) => addItem(list))
-    }), 300));
+
+const countryItems = function() {
+    countryValue = country.value;
+    checkBank(countryValue)
+        .then((list) => list.json())
+        .then((list) => addItem(list));
+}
 
 
 const addItem = function(list) {
@@ -44,3 +45,6 @@ const checkBank = function(country) {
     })
     return promise;
 };
+
+country.addEventListener('input',
+    _.debounce(((countryItems()), 300)));
