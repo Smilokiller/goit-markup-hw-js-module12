@@ -20,8 +20,6 @@ const countryItems = function() {
 
 
 const addItem = function(list) {
-    const templateItems = templateCountries(list);
-    const templateItem = templateCountry(list);
     while (countryList.hasChildNodes()) {
         countryList.removeChild(countryList.firstChild);
     }
@@ -29,6 +27,8 @@ const addItem = function(list) {
 }
 
 const drowItem = function(list) {
+    const templateItems = templateCountries(list);
+    const templateItem = templateCountry(list);
     if (list.length === 1) {
         drowFromHbs(templateItem)
     } else if (list.length > 10) {
@@ -50,9 +50,6 @@ const checkCountry = function(country) {
     const find = fetch(`
         https://restcountries.eu/rest/v2/name/${country}`)
     return find;
-
-
 };
 
-country.addEventListener('input',
-    _.debounce(countryItems, 300));
+country.addEventListener('input', _.debounce(countryItems, 300));
