@@ -47,4 +47,4 @@ const checkBank = function(country) {
 };
 
 country.addEventListener('input',
-    _.debounce(((countryItems()), 300)));
+    _.debounce(countryItems, 300));
