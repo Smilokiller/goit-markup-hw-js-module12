@@ -13,6 +13,10 @@ let countryValue;
 
 const countryItems = function() {
     countryValue = country.value;
+    callCheckCountry()
+}
+
+const callCheckCountry = function() {
     checkCountry(countryValue)
         .then((list) => list.json())
         .then((list) => addItem(list));
