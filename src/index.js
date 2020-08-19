@@ -8,21 +8,6 @@ const countryList = document.querySelector('.country__list');
 const country = document.querySelector('.country');
 const _ = require('lodash');
 
-
-let countryValue;
-
-const countryItems = function() {
-    countryValue = country.value;
-    callCheckCountry()
-}
-
-const callCheckCountry = function() {
-    checkCountry(countryValue)
-        .then((list) => list.json())
-        .then((list) => addItem(list));
-}
-
-
 const addItem = function(list) {
     while (countryList.hasChildNodes()) {
         countryList.removeChild(countryList.firstChild);
@@ -50,10 +35,13 @@ const err = function() {
     });
 }
 
-const checkCountry = function(country) {
+const checkCountry = function() {
+    const countryVal = country.value;
     const find = fetch(`
-        https://restcountries.eu/rest/v2/name/${country}`)
+        https://restcountries.eu/rest/v2/name/${countryVal}`)
+        .then((list) => list.json())
+        .then((list) => addItem(list));
     return find;
 };
 
-country.addEventListener('input', _.debounce(countryItems, 300));
+country.addEventListener('input', _.debounce(checkCountry, 300));
